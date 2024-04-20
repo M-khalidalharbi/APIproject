@@ -3,7 +3,7 @@ package Homework;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
-public class assigment1 {
+public class Hw3 {
     /*
         Given
             https://reqres.in/api/users/3

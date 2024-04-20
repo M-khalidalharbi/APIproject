@@ -1,5 +1,12 @@
 package Homework;
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.testng.annotations.Test;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
 public class Hw08 {
 
      /*
@@ -20,4 +27,36 @@ public class Hw08 {
                                                 "createdAt": "2022-10-04T15:18:56.372Z"
                                               }
      */
-}
+
+
+         @Test
+         public void Hweight() {
+             String requestBody = """
+                                 {
+                                 "name": "morpheus",
+                                 "job": "leader",
+                                 "id": 496,
+                                 "createdAt": "2022-10-04T15:18:56.372Z"
+                                 }""";
+//send POST Request to the Url
+             io.restassured.response.Response response = RestAssured.given()
+                     .contentType(ContentType.JSON)
+                     .body(requestBody)
+                     .post("https://reqres.in/api/users");
+             response.prettyPrint();
+
+
+
+             //Do assertion
+             response
+                     .then()
+                     .statusCode(201)
+                     .body("name", equalTo("morpheus"),
+                             "job", equalTo("leader"),
+                             "id", equalTo(496),
+                             "createdAt",  notNullValue());
+
+
+         }
+     }
+

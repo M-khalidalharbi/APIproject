@@ -34,7 +34,7 @@ public class Hw06 {
    }
          */
     @Test
-    public void assigmentfour() {
+    public void assigmentsix() {
         given()
                 .when()
                 .get("https://reqres.in/api/unknown/3")

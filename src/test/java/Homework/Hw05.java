@@ -22,7 +22,7 @@ public class Hw05 {
                Response body should be empty
         */
     @Test
-    public void HWThree() {
+    public void five() {
         Response response = RestAssured.get("https://reqres.in/api/users/23");
 
 

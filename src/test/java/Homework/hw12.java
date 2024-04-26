@@ -1,38 +1,59 @@
 package Homework;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.given;
 import static org.testng.AssertJUnit.assertEquals;
+//Write an automation test that will create, read, update, delete a 'pet' using the "https://petstore.swagger.io/" document
+//(All actions must be done on same pet)
+public class homework12 {
+    private static final String BASE_URL = "https://petstore.swagger.io/v2/pet";
 
-public class hw12 {
-      /*
-    Given
-        https://automationexercise.com/api/productsList
-    When
-        User sends a GET request
-    Then
-        Assert that the number of "Women" user type is 12
+    @Test
+    public void HW12(){
+        PetHW pet = new PetHW(1, "Fluffy", "available");
 
-    Note: Print using JsonPath: response.jsonPath().prettyPrint();
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(pet)
+                .when()
+                .post(BASE_URL);
 
-*/
-      @Test
-      public void Homework11(){
-          // Send a GET request to the specified URL
-          Response response = RestAssured.get("https://automationexercise.com/api/productsList");
+        assertEquals(response.getStatusCode(), 200);
+    }
 
-          // Assert that the status code is 200
-          assertEquals(response.getStatusCode(), 200);
+    @Test(priority = 1)
+    public void testGetPet() {
+        Response response = RestAssured.get(BASE_URL + "/1");
 
-          // Print the response using JsonPath
-          response.jsonPath().prettyPrint();
+        assertEquals(response.getStatusCode(), 200);
+        PetHW pet = response.getBody().as(PetHW.class);
+        assertEquals(pet.getName(), "Fluffy");
+    }
 
-          // Assert that the number of "Women" user type is 12
-          int womenCount = response.jsonPath().getList("products.findAll { it.category.usertype.usertype == 'Women' }").size();
-          assertEquals(womenCount, 12);
-      }
+    @Test(priority = 2)
+    public void testUpdatePet() {
+        PetHW pet = new PetHW(1, "Fluffy", "sold");
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(pet)
+                .when()
+                .put(BASE_URL);
+
+        assertEquals(response.getStatusCode(), 200);
+    }
+
+    @Test(priority = 3)
+    public void testDeletePet() {
+        Response response = RestAssured.delete(BASE_URL + "/1");
+
+        assertEquals(response.getStatusCode(), 200);
+    }
+
 }
 
 

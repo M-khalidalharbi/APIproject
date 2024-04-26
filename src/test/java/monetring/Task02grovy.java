@@ -1,6 +1,9 @@
 package monetring;
 
-public class Task02grovy {
+import io.restassured.RestAssured;
+import org.testng.annotations.Test;
+
+public class Hw11{
 
 
         @Test

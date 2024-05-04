@@ -14,7 +14,8 @@ public class homework12 {
 
     @Test
     public void HW12(){
-        PetHW pet = new PetHW(1, "Fluffy", "available");
+
+         pet = new PetHW(1, "Fluffy", "available");
 
         Response response = given()
                 .contentType(ContentType.JSON)

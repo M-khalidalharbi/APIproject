@@ -12,7 +12,7 @@ import static java.util.function.Predicate.not;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Hw16 {
-    public class Assignment16 {
+
         private int ID;
 
         @BeforeClass
